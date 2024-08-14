@@ -36,10 +36,9 @@ void main(){
 		switch(op){
 		case '1':
 			cadastrar(&estoque);
-
 			break;
 		case '2':
-			
+			listar(&estoque);
 			break;
 		default:
 			break;
