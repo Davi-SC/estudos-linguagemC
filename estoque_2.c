@@ -2,8 +2,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-void cadastrar(Estoque *estoque);
-
 typedef struct {
 	int codigo;
 	char descricao[100];
@@ -14,13 +12,11 @@ typedef struct {
 typedef struct {
 	Produto produtos[100];
 	int qtd; //Quantidade de produtos cadastrados
-	int p; //Proxima posição livre
 }Estoque;
 
 void main(){
 	
 	Estoque estoque;
-	estoque.p = 0;
 	estoque.qtd = 0;
 	
 	while(1){
@@ -39,8 +35,8 @@ void main(){
 		
 		switch(op){
 		case '1':
-			cadastrar(estoque);
-			printf(estoque.produtos[0].descricao);
+			cadastrar(&estoque);
+
 			break;
 		case '2':
 			
@@ -56,11 +52,12 @@ void main(){
 
 void cadastrar(Estoque *estoque){
 	system("cls");
+	fflush(stdin);
 	char descricao[100];
 	float preco;
 	int qtd;
 	
-	print("-------- CADASTRAR --------")
+	print("-------- CADASTRAR --------");
 	printf("\nDESCRICAO: ");
 	gets(descricao);
 	printf("\nPRECO");
@@ -68,18 +65,19 @@ void cadastrar(Estoque *estoque){
 	printf("\nQUANTIDADE");
 	scanf("%d",&qtd);
 	
-	int cod;
-	if(estoque.p == 0){
+	int codigo;
+	if(estoque->qtd == 0){
 		codigo = 1;
 	}else{
-		codigo = estoque.produtos[estoque.p-1].codigo + 1;
+		codigo = estoque->produtos[estoque->qtd-1].codigo + 1;
 	}
 	
 	
-	estoque.produtos[estoque.p].preco = preco;
-	estoque.produtos[estoque.p].quantidade = qtd;
-	strcpy(.produtos[estoque.p].descricao, descricao);
+	estoque->produtos[estoque->qtd].preco = preco;
+	estoque->produtos[estoque->qtd].quantidade = qtd;
+	strcpy(estoque->produtos[estoque->qtd].descricao, descricao);
 	
-	estoque.produtos[estoque.p].codigo = codigo;
-	estoque.p++;
-}
+	estoque->produtos[estoque->qtd].codigo = codigo;
+	estoque->qtd++;
+
+}//Fim do cadastrar
